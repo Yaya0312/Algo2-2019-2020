@@ -26,8 +26,7 @@ int main(int argc, const char *argv[]) {
     // Ajout fichier
     else if (strcmp(argv[cur_arg], "-") == 0) {
       ++cur_arg;
-      lidx_add_file(lid, (char *) argv[cur_arg]); //Probleme valgrind (le
-                                                  // dernier)
+      lidx_add_file(lid, (char *) argv[cur_arg]);
     } else {
       //Do nothing
     }
@@ -38,6 +37,6 @@ int main(int argc, const char *argv[]) {
   lidx_set_options(lid, &opt);
   lidx_add_stdin(lid, stdin);
   lidx_print(lid);
-  lidx_dispose(lid); //Probleme valgrind (le dernier)
+  lidx_dispose(lid);
   return EXIT_SUCCESS;
 }
