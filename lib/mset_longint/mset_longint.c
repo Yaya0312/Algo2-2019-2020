@@ -24,11 +24,6 @@ int mset_longint_put(mset_longint *msli, long int num) {
   if (msli == NULL) {
     return FUN_FAIL;
   }
-  long int *p = malloc(sizeof(*p));
-  if (p == NULL) {
-    return FUN_FAIL;
-  }
-  *p = num;
   if (list_last_element(msli->mset) != (const void *) num) {
     if (list_add(msli->mset, (const void *) num) == NULL) {
       return FUN_FAIL;
