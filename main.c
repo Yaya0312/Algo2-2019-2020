@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "lidx.h"
 #include "option.h"
+#include "locale.h"
 
 int main(int argc, const char *argv[]) {
   if (argc < 2) {
@@ -12,6 +13,7 @@ int main(int argc, const char *argv[]) {
     exit(EXIT_FAILURE);
   }
   // ****************** Init Var *********************************************//
+  setlocale(LC_COLLATE, "");
   int cur_arg = 1;
   lidx *lid = lidx_empty();
   if (lid == NULL) {
