@@ -42,7 +42,7 @@ lidx *lidx_empty() {
     return NULL;
   }
   //data
-  lid->data = hashtable_empty((int (*)(const void *, const void *))strcmp,
+  lid->data = hashtable_empty((int (*)(const void *, const void *))strcoll,
           (size_t (*)(const void *))str_hashfun);
   //words
   lid->words = holdall_empty();
@@ -127,7 +127,7 @@ int lidx_add_stdin(lidx *lex, FILE *stream) {
 void lidx_print(lidx *lid) { //OK
   //apply options
   if (lid->options->sort) {
-    holdall_sort(lid->words, (int (*)(const void *, const void *))strcmp);
+    holdall_sort(lid->words, (int (*)(const void *, const void *))strcoll);
   }
   //header
   printf("\t\t");
