@@ -6,13 +6,13 @@
 #define EXIT_SUCCESS 1
 
 int main() {
-  const wint_t *string = (const wint_t *) "la pomme bleu.";
-  wint_t word[MAX_LENGTH_WORDS];
-  wint_t c;
+  const char *string = (const char *) "la pomme bleu.";
+  char word[MAX_LENGTH_WORDS];
+  char c;
   printf("*** String : print\n");
   while (true) { //A optimiser (voir Q.16)
-    c = next_word_string((wint_t **) &string, word);
-    if (wcslen((wint_t *) word) > 0) {
+    c = next_word_string((char **) &string, word);
+    if (strlen((char *) word) > 0) {
       printf("%s\n", word);
     }
     if (c == '\n' || c == '\0') {
