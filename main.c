@@ -50,6 +50,8 @@ int main(int argc, const char *argv[]) {
   }
   holdall_apply_context(words, fun_str, funcontext, lid);
   holdall_apply_context(filenames, fun_file, funcontext, lid);
+  holdall_dispose(&filenames);
+  holdall_dispose(&words);
   settings opt;
   manage_option(&opt, argc, argv);
   lidx_set_options(lid, &opt);
