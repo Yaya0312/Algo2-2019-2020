@@ -20,6 +20,8 @@ int main(int argc, const char *argv[]) {
   //--- Init var ---------------------------------------------------------------
   setlocale(LC_COLLATE, "");
   int cur_arg = 1;
+  int pos_arg = 0;
+  char *arg_commands[argc];
   lidx *lid = lidx_empty();
   if (lid == NULL) {
     return EXIT_FAILURE;
@@ -35,26 +37,28 @@ int main(int argc, const char *argv[]) {
   }
   //--- Commands ---------------------------------------------------------------
   while (argv[cur_arg] != NULL) {
-    // String de base
+    // String
     if (*argv[cur_arg] != '-') {
       holdall_put(words, &argv[cur_arg]);
     }
-    // Ajout fichier
+    //--- Filenames ------------------------------------------------------------
     else if (strcmp(argv[cur_arg], "-") == 0) {
       ++cur_arg;
       holdall_put(filenames, (char *) argv[cur_arg]);
-    } else {
-      //Do nothing
+    }
+    //--- Options --------------------------------------------------------------
+    else {
+      arg_commands[pos_arg] = (char *) argv[cur_arg];
     }
     ++cur_arg;
   }
+  settings opt;
+  manage_option(&opt, pos_arg, (const char **) arg_commands);
+  lidx_set_options(lid, &opt);
   holdall_apply_context(words, fun_str, funcontext, lid);
   holdall_apply_context(filenames, fun_file, funcontext, lid);
   holdall_dispose(&filenames);
   holdall_dispose(&words);
-  settings opt;
-  manage_option(&opt, argc, argv);
-  lidx_set_options(lid, &opt);
   lidx_add_stdin(lid, stdin);
   lidx_print(lid);
   lidx_dispose(lid);
