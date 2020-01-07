@@ -1,9 +1,11 @@
 #include "holdall.h"
 #include "hashtable.h"
+#include "option.h"
 #include "mset_longint.h"
 #include "read_words.h"
 #include "msetb.h"
 #include "lidx.h"
+#include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -35,6 +37,7 @@ static size_t str_hashfun(const char *s);
 static int add_word(lidx *lid, const char *word, int file_pos);
 static void update_line(lidx *lex, long int line, char *word);
 static void *free_value_hashatbale(hashtable *ht, char *word);
+static void update_case(int opp, char *word);
 
 lidx *lidx_empty() {
   lidx *lid = malloc(sizeof(*lid));
@@ -72,6 +75,7 @@ int lidx_add_file(lidx *lid, char *path) {
   while (true) {
     c = next_word_file(file, word);
     if (strlen(word) > 0 && c != WORD_LIMIT) {
+      update_case(lid->options->case_word, word);
       add_word(lid, word, (int) counter);
     }
     if (c == EOF) {
@@ -92,6 +96,7 @@ int lidx_add_string(lidx *lid, const char **s) {
   while (true) {
     c = next_word_string((char **) s, word);
     if (strlen(word) > 0 && c != WORD_LIMIT) {
+      update_case(lid->options->case_word, word);
       add_word(lid, word, 0);
     }
     if (c == EOF || c == '\n' || c == '\0') {
@@ -101,8 +106,8 @@ int lidx_add_string(lidx *lid, const char **s) {
   return FUN_SUCC;
 }
 
-int lidx_add_stdin(lidx *lex, FILE *stream) {
-  if (stream == NULL || lex == NULL) {
+int lidx_add_stdin(lidx *lid, FILE *stream) {
+  if (stream == NULL || lid == NULL) {
     return FUN_FAIL;
   }
   char word[MAX_LENGTH_WORDS];
@@ -114,7 +119,8 @@ int lidx_add_stdin(lidx *lex, FILE *stream) {
       if (c == '\n') {
         ++line;
       } else {
-        update_line(lex, line, word);
+        update_case(lid->options->case_word, word);
+        update_line(lid, line, word);
       }
     }
     if (c == EOF) {
@@ -240,4 +246,47 @@ static void *free_value_hashatbale(hashtable *ht, char *word) {
   free(p);
   p = NULL;
   return NULL;
+}
+
+//--- Change case --------------------------------------------------------------
+// void apply_string(char *str, int (*fun)(int)) {
+//   while (*str != '\0' && *str != EOF) {
+//     *str = (char) fun(*str);
+//     str = str + 1;
+//   }
+// }
+
+// static void to_upper_string(char *str) {
+//   apply_string(str, toupper);
+// }
+
+// static void to_lower_string(char *str) {
+//   apply_string(str, tolower);
+// }
+
+// static void update_case(int opp, char *word) {
+//   switch (opp) {
+//     case LOWER:
+//       to_lower_string(word);
+//       break;
+//     case UPPER:
+//       to_upper_string(word);
+//       break;
+//   }
+// }
+
+static void update_case(int opp, char *word) {
+  while (*word != '\0' && *word != EOF) {
+    switch (opp) {
+      case LOWER:
+        *word = (char) tolower(*word);
+        break;
+      case UPPER:
+        *word = (char) toupper(*word);
+        break;
+      default:
+        return;
+    }
+    word = word + 1;
+  }
 }
