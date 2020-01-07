@@ -20,7 +20,7 @@ int main(int argc, const char *argv[]) {
   //--- Init var ---------------------------------------------------------------
   setlocale(LC_COLLATE, "");
   int cur_arg = 1;
-  int pos_arg = 0;
+  int command_arg = 0;
   char *arg_commands[argc];
   lidx *lid = lidx_empty();
   if (lid == NULL) {
@@ -48,12 +48,12 @@ int main(int argc, const char *argv[]) {
     }
     //--- Options --------------------------------------------------------------
     else {
-      arg_commands[pos_arg] = (char *) argv[cur_arg];
+      arg_commands[command_arg] = (char *) argv[cur_arg];
     }
     ++cur_arg;
   }
   settings opt;
-  manage_option(&opt, pos_arg, (const char **) arg_commands);
+  manage_option(&opt, command_arg, (const char **) arg_commands);
   lidx_set_options(lid, &opt);
   holdall_apply_context(words, fun_str, funcontext, lid);
   holdall_apply_context(filenames, fun_file, funcontext, lid);
