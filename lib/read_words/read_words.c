@@ -11,7 +11,7 @@ char next_word_string(char **string, char *word) {
   char c;
   while ((c = **string)) {
     if (count > MAX_LENGTH_WORDS) {
-      while((c = **string)) {
+      while ((c = **string)) {
         if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
           return WORD_LIMIT;
         }
@@ -37,7 +37,7 @@ char next_word_file(FILE *file, char *word) {
   char c;
   while ((c = (char) fgetc(file))) {
     if (count > MAX_LENGTH_WORDS) {
-      while((c = (char) fgetc(file))) {
+      while ((c = (char) fgetc(file))) {
         if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
           return WORD_LIMIT;
         }
@@ -60,7 +60,7 @@ char next_word_stdin(FILE *file, char *word) {
   char c;
   while ((c = (char) fgetc(file))) {
     if (count > MAX_LENGTH_WORDS) {
-      while((c = (char) fgetc(file))) {
+      while ((c = (char) fgetc(file))) {
         if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
           return WORD_LIMIT;
         }
