@@ -5,6 +5,10 @@
 #ifndef OPTION__H
 #define OPTION__H
 
+#define LOWER -1
+#define AS_IS 0
+#define UPPER 1
+
 typedef struct settings {
   bool sort;
   int case_word;
