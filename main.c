@@ -20,8 +20,8 @@ int main(int argc, const char *argv[]) {
   //--- Init var ---------------------------------------------------------------
   setlocale(LC_COLLATE, "");
   int cur_arg = 1;
-  int command_arg = 0;
-  char *arg_commands[argc];
+  int command_arg = 1;
+  const char *arg_commands[argc];
   lidx *lid = lidx_empty();
   if (lid == NULL) {
     return EXIT_FAILURE;
@@ -49,6 +49,7 @@ int main(int argc, const char *argv[]) {
     //--- Options --------------------------------------------------------------
     else {
       arg_commands[command_arg] = (char *) argv[cur_arg];
+      command_arg = command_arg + 1;
     }
     ++cur_arg;
   }
