@@ -25,19 +25,24 @@ int main(int argc, const char *argv[]) {
     return EXIT_FAILURE;
   }
   holdall *filenames = holdall_empty();
+  if (filenames == NULL) {
+    return EXIT_FAILURE;
+  }
   holdall *words = holdall_empty();
+  if (words == NULL) {
+    holdall_dispose(filenames);
+    return EXIT_FAILURE;
+  }
   //--- Commands ---------------------------------------------------------------
   while (argv[cur_arg] != NULL) {
     // String de base
     if (*argv[cur_arg] != '-') {
       holdall_put(words, &argv[cur_arg]);
-      //lidx_add_string(lid, &argv[cur_arg]);
     }
     // Ajout fichier
     else if (strcmp(argv[cur_arg], "-") == 0) {
       ++cur_arg;
       holdall_put(filenames, (char *) argv[cur_arg]);
-      //lidx_add_file(lid, (char *) argv[cur_arg]);
     } else {
       //Do nothing
     }
