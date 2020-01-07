@@ -30,7 +30,7 @@ int main(int argc, const char *argv[]) {
   }
   holdall *words = holdall_empty();
   if (words == NULL) {
-    holdall_dispose(filenames);
+    holdall_dispose(&filenames);
     return EXIT_FAILURE;
   }
   //--- Commands ---------------------------------------------------------------
