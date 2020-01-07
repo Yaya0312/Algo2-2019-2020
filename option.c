@@ -5,12 +5,10 @@
 #include <string.h>
 #include "option.h"
 
-#define HELP_CASE 100
+#define HELP 100
+#define CASE 101
 #define FUN_FAIL -1
 #define FUN_SUCC 0
-#define LOWER -1
-#define AS_IS 0
-#define UPPER 1
 #define HELP_MESSAGE \
   "\
 --help affiche l’aide selon le format usuel\n\
@@ -25,9 +23,9 @@
 " \
 
 static struct option long_options[] = {
-  {"help", no_argument, NULL, HELP_CASE },
+  {"help", no_argument, NULL, HELP },
   {"sort", no_argument, NULL, 'S' },
-  {"case", required_argument, NULL, 0 },
+  {"case", required_argument, NULL, CASE},
   {"input", required_argument, NULL, 'i' },
   {"output", required_argument, NULL, 'o'},
   {0, 0, 0, 0 }
@@ -48,13 +46,13 @@ int manage_option(settings *opt, int argc, const char *argv[]) {
       return FUN_SUCC;
     }
     switch (c) {
-      case HELP_CASE:
+      case HELP:
         printf(HELP_MESSAGE);
         exit(EXIT_SUCCESS);
       case 'S':
         opt->sort = true;
         break;
-      case 'c':
+      case CASE:
         if (strcmp(optarg, "lower") == 0) {
           opt->case_word = LOWER;
         } else if (strcmp(optarg, "as-is") == 0) {
