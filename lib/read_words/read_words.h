@@ -12,9 +12,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#ifndef MAX_LENGTH_WORDS
 #define MAX_LENGTH_WORDS 63
-#endif
 
 // stocke le mot suivant de la chaine de caractére string dans la chaine de
 // caractéres word et retourne le dernier caractére lu. //OK
