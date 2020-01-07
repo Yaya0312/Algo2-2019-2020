@@ -142,7 +142,7 @@ void lidx_set_options(lidx *lid, settings *opts) {
   lid->options = opts;
 }
 
-void lidx_dispose(lidx *lid) { //A vérfier
+void lidx_dispose(lidx *lid) {
   //free value hastable
   holdall_apply_context(lid->words, (int (*)(void *, void *))loop,
       (void *(*)(void *, void *))free_value_hashatbale, lid->data);
@@ -188,6 +188,7 @@ static size_t str_hashfun(const char *s) {
   return h;
 }
 
+//--- Ajout mot && mise à jour ligne -------------------------------------------
 static int add_word(lidx *lid, const char *word, int file_pos) {
   ht_val *cptr = (ht_val *) hashtable_search(lid->data, word);
   // not exist
@@ -225,14 +226,14 @@ end:
   return r;
 }
 
-void update_line(lidx *lex, long int line, char *word) {
+static void update_line(lidx *lex, long int line, char *word) {
   ht_val *p = (ht_val *) hashtable_search(lex->data, word);
   if (p != NULL) {
     mset_longint_put(p->lines, line);
   }
 }
 
-void *free_value_hashatbale(hashtable *ht, char *word) {
+static void *free_value_hashatbale(hashtable *ht, char *word) {
   ht_val *p = (ht_val *) hashtable_search(ht, word);
   mset_longint_dispose(p->lines);
   msetb_dispose(&(p->is_in));
