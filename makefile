@@ -25,7 +25,7 @@ tar: clean
 hashtable.o: hashtable.c hashtable.h
 holdall.o: holdall.c holdall.h
 read_words.o : read_words.c read_words.h
-main.o: main.c lidx.h option.h
+main.o: main.c lidx.h option.h holdall.h
 lidx.o: holdall.h  hashtable.h lidx.h option.h
 mset_longint.o : mset_longint.h holdall.h
 msetb.o: msetb.h holdall.h
