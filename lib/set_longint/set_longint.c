@@ -1,18 +1,18 @@
-#include "mset_longint.h"
+#include "set_longint.h"
 
 #define FUN_FAIL -1
 #define FUN_SUCC 0
 
-struct mset_longint {
+struct set_longint {
   list *mset;
 };
 
-mset_longint *mset_longint_empty() {
+set_longint *set_longint_empty() {
   list *p = list_empty();
   if (p == NULL) {
     return NULL;
   }
-  mset_longint *m = malloc(sizeof(m));
+  set_longint *m = malloc(sizeof(m));
   if (m == NULL) {
     return NULL;
   }
@@ -20,7 +20,7 @@ mset_longint *mset_longint_empty() {
   return m;
 }
 
-int mset_longint_put(mset_longint *msli, long int num) {
+int set_longint_put(set_longint *msli, long int num) {
   if (msli == NULL) {
     return FUN_FAIL;
   }
@@ -32,11 +32,11 @@ int mset_longint_put(mset_longint *msli, long int num) {
   return FUN_SUCC;
 }
 
-void mset_longint_display(mset_longint *msli) {
+void set_longint_display(set_longint *msli) {
   list_display(msli->mset);
 }
 
-void mset_longint_dispose(mset_longint *msliptr) {
+void set_longint_dispose(set_longint *msliptr) {
   list_dispose(msliptr->mset);
   free(msliptr);
   msliptr = NULL;
