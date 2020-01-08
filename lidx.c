@@ -1,7 +1,7 @@
 #include "holdall.h"
 #include "hashtable.h"
 #include "option.h"
-#include "mset_longint.h"
+#include "set_longint.h"
 #include "read_words.h"
 #include "setb.h"
 #include "lidx.h"
@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "mset_longint.h"
+#include "set_longint.h"
 
 #define FUN_FAIL -1
 #define FUN_SUCC 0
@@ -25,7 +25,7 @@ struct lidx {
 };
 
 typedef struct {
-  mset_longint *lines;
+  set_longint *lines;
   setb *is_in;
 } ht_val;
 
@@ -172,7 +172,7 @@ static void *print_line(hashtable *ht, char *word) {
   hashtable_search(ht, word);
   printf("%s", word);
   setb_display(data->is_in);
-  mset_longint_display(data->lines);
+  set_longint_display(data->lines);
   printf("\n");
   return FUN_SUCC;
 }
@@ -208,7 +208,7 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
     if (p == NULL) {
       goto error_capacity;
     }
-    p->lines = mset_longint_empty();
+    p->lines = set_longint_empty();
     if (p->lines == NULL) {
       return FUN_FAIL;
     }
@@ -235,13 +235,13 @@ end:
 static void update_line(lidx *lex, long int line, char *word) {
   ht_val *p = (ht_val *) hashtable_search(lex->data, word);
   if (p != NULL) {
-    mset_longint_put(p->lines, line);
+    set_longint_put(p->lines, line);
   }
 }
 
 static void *free_value_hashatbale(hashtable *ht, char *word) {
   ht_val *p = (ht_val *) hashtable_search(ht, word);
-  mset_longint_dispose(p->lines);
+  set_longint_dispose(p->lines);
   setb_dispose(&(p->is_in));
   free(p);
   p = NULL;
