@@ -35,8 +35,6 @@ int manage_option(settings *opt, int argc, const char *argv[]) {
   //init struct
   opt->sort = false;
   opt->case_word = AS_IS;
-  opt->stream_in = stdin;
-  opt->stream_out = stdout;
   int c;
   while (1) {
     int option_index = 0;
@@ -71,16 +69,10 @@ int manage_option(settings *opt, int argc, const char *argv[]) {
         opt->case_word = UPPER;
         break;
       case 'i':
-        opt->stream_in = fopen(optarg, "r");
-        if (opt->stream_in == NULL) {
-          return FUN_FAIL;
-        }
+        opt->stream_in = optarg;
         break;
       case 'o':
-        opt->stream_out = fopen(optarg, "w");
-        if (opt->stream_out == NULL) {
-          return FUN_FAIL;
-        }
+        opt->stream_out = optarg;
         break;
     }
   }

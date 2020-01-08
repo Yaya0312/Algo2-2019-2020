@@ -50,6 +50,12 @@ int main(int argc, const char *argv[]) {
     else {
       arg_commands[command_arg] = (char *) argv[cur_arg];
       command_arg = command_arg + 1;
+      if (strcmp("-i", argv[cur_arg]) == 0
+          || strcmp("-i", argv[cur_arg]) == 0) {
+        ++cur_arg;
+        arg_commands[command_arg] = (char *) argv[cur_arg];
+        command_arg = command_arg + 1;
+      }
     }
     ++cur_arg;
   }
@@ -60,7 +66,13 @@ int main(int argc, const char *argv[]) {
   holdall_apply_context(filenames, fun_file, funcontext, lid);
   holdall_dispose(&filenames);
   holdall_dispose(&words);
-  lidx_add_stdin(lid, stdin);
+  if (opt.stream_in == NULL) {
+    lidx_add_stdin(lid, stdin);
+  } else {
+    FILE *file = fopen(opt.stream_in, "r");
+    lidx_add_stdin(lid, file);
+    fclose(file);
+  }
   lidx_print(lid);
   lidx_dispose(lid);
   return EXIT_SUCCESS;
