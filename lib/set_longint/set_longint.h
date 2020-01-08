@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+#include <stdbool.h>
 
 #ifndef SET_LONG_INT__H
 #define SET_LONG_INT__H
@@ -24,7 +24,7 @@ extern set_longint *set_longint_empty(void);
 
 //  set_longint_put : ajout d'un nombre num à la structure de donnée associée à
 //    *msli. Renvoie 0 en cas de succès et -1 en cas d'échec
-extern int set_longint_put(set_longint *msli, long int num);
+extern const long int *set_longint_put(set_longint *msli, const long int *num);
 
 //  set_longint_display : affichage de la liste de nombre
 extern void set_longint_display(set_longint *msli);
