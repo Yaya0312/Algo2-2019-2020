@@ -31,7 +31,7 @@ static struct option long_options[] = {
   {0, 0, 0, 0 }
 };
 
-int manage_option(settings *opt, int argc, const char *argv[]) {
+int manage_option(options *opt, int argc, const char *argv[]) {
   //init struct
   opt->sort = false;
   opt->case_word = AS_IS;
@@ -81,7 +81,7 @@ int manage_option(settings *opt, int argc, const char *argv[]) {
   return FUN_SUCC;
 }
 
-void option_debug(settings *opt) {
+void option_debug(options *opt) {
   printf("Trie par ordre alphabetique: ");
   opt->sort ? printf("Oui\n") : printf("Non\n");
   printf("Changement de la casse:");

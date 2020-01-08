@@ -21,7 +21,7 @@ struct lidx {
   hashtable *data;
   holdall *words;
   holdall *filenames;
-  settings *options;
+  options *options;
 };
 
 typedef struct {
@@ -144,7 +144,7 @@ void lidx_print(lidx *lid) { //OK
       (void *(*)(void *, void *))print_line, lid->data);
 }
 
-void lidx_set_options(lidx *lid, settings *opts) {
+void lidx_set_options(lidx *lid, options *opts) {
   lid->options = opts;
 }
 

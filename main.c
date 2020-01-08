@@ -59,7 +59,7 @@ int main(int argc, const char *argv[]) {
     }
     ++cur_arg;
   }
-  settings opt;
+  options opt;
   manage_option(&opt, command_arg, (const char **) arg_commands);
   lidx_set_options(lid, &opt);
   holdall_apply_context(words, fun_str, funcontext, lid);
