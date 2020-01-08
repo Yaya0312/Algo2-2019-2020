@@ -39,7 +39,7 @@ extern void lidx_print(lidx *lid);
 
 //  lidx_set_options : définie les options d'affichage pour les mots contenus 
 //    dans la hashtable de lid avec les options opts
-extern void lidx_set_options(lidx *lid, settings *opts);
+extern void lidx_set_options(lidx *lid, options *opts);
 
 //  lidx_dispose : libère les ressources allouées à la structure de données 
 //    associée à *lid puis affecte à *lid la valeur NULL
