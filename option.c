@@ -35,6 +35,8 @@ int manage_option(settings *opt, int argc, const char *argv[]) {
   //init struct
   opt->sort = false;
   opt->case_word = AS_IS;
+  opt->stream_in = NULL;
+  opt->stream_out = NULL;
   int c;
   while (1) {
     int option_index = 0;
