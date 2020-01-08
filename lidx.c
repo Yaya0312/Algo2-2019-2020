@@ -3,7 +3,7 @@
 #include "option.h"
 #include "mset_longint.h"
 #include "read_words.h"
-#include "msetb.h"
+#include "setb.h"
 #include "lidx.h"
 #include <ctype.h>
 #include <string.h>
@@ -26,7 +26,7 @@ struct lidx {
 
 typedef struct {
   mset_longint *lines;
-  msetb *is_in;
+  setb *is_in;
 } ht_val;
 
 static int display_files(const char *s);
@@ -171,7 +171,7 @@ static void *print_line(hashtable *ht, char *word) {
   ht_val *data = (ht_val *) hashtable_search(ht, word);
   hashtable_search(ht, word);
   printf("%s", word);
-  msetb_display(data->is_in);
+  setb_display(data->is_in);
   mset_longint_display(data->lines);
   printf("\n");
   return FUN_SUCC;
@@ -212,7 +212,7 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
     if (p->lines == NULL) {
       return FUN_FAIL;
     }
-    p->is_in = msetb_empty(2);
+    p->is_in = setb_empty(2);
     if (p->is_in == NULL) {
       return FUN_FAIL;
     }
@@ -220,9 +220,9 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
       free(p);
       goto error_capacity;
     }
-    msetb_put(p->is_in, file_pos);
+    setb_put(p->is_in, file_pos);
   } else {
-    msetb_put(cptr->is_in, file_pos);
+    setb_put(cptr->is_in, file_pos);
   }
   int r = FUN_SUCC;
   goto end;
@@ -242,7 +242,7 @@ static void update_line(lidx *lex, long int line, char *word) {
 static void *free_value_hashatbale(hashtable *ht, char *word) {
   ht_val *p = (ht_val *) hashtable_search(ht, word);
   mset_longint_dispose(p->lines);
-  msetb_dispose(&(p->is_in));
+  setb_dispose(&(p->is_in));
   free(p);
   p = NULL;
   return NULL;

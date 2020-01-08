@@ -1,4 +1,4 @@
-#include "msetb.h"
+#include "setb.h"
 
 #define FUN_SUCC 0
 #define FUN_FAIL -1
@@ -7,21 +7,21 @@
 #define ERR_LOWER_THAN_LAST_VALUE -3
 #define ERR_CAPACITY_MEMORY -4
 
-typedef struct cmsetb cmsetb;
+typedef struct csetb csetb;
 
-struct msetb {
-  cmsetb *head;
-  cmsetb *tail;
+struct setb {
+  csetb *head;
+  csetb *tail;
   int max;
 };
 
-struct cmsetb {
+struct csetb {
   int value;
-  cmsetb *next;
+  csetb *next;
 };
 
-msetb *msetb_empty(int max) {
-  msetb *p = malloc(sizeof *p);
+setb *setb_empty(int max) {
+  setb *p = malloc(sizeof *p);
   if (p == NULL) {
     return NULL;
   }
@@ -31,11 +31,11 @@ msetb *msetb_empty(int max) {
   return p;
 }
 
-int msetb_put(msetb *msli, int num) {
+int setb_put(setb *msli, int num) {
   if (msli == NULL) {
     return FUN_FAIL;
   }
-  if (num > msetb_max(msli)) {
+  if (num > setb_max(msli)) {
     return ERR_GREATER_THAN_MAX;
   }
   if (msli->tail != NULL) {
@@ -43,7 +43,7 @@ int msetb_put(msetb *msli, int num) {
       return ERR_LOWER_THAN_LAST_VALUE;
     }
   }
-  cmsetb *p = malloc(sizeof *p);
+  csetb *p = malloc(sizeof *p);
   if (p == NULL) {
     return ERR_CAPACITY_MEMORY;
   }
@@ -61,12 +61,12 @@ int msetb_put(msetb *msli, int num) {
   return FUN_SUCC;
 }
 
-void msetb_display(msetb *msli) {
+void setb_display(setb *msli) {
   if (msli == NULL) {
     return;
   }
   int counter = 0;
-  cmsetb *p = msli->head;
+  csetb *p = msli->head;
   while (counter <= msli->max) {
     printf("\t");
     if (p != NULL && counter == p->value) {
@@ -78,20 +78,20 @@ void msetb_display(msetb *msli) {
   printf("\t");
 }
 
-int msetb_max(msetb *msbprt) {
+int setb_max(setb *msbprt) {
   if (msbprt == NULL) {
     return FUN_FAIL;
   }
   return msbprt->max;
 }
 
-void msetb_dispose(msetb **msliptr) {
+void setb_dispose(setb **msliptr) {
   if (*msliptr == NULL) {
     return;
   }
-  cmsetb *p = (*msliptr)->head;
+  csetb *p = (*msliptr)->head;
   while (p != NULL) {
-    cmsetb *t = p;
+    csetb *t = p;
     p = p->next;
     free(t);
   }
