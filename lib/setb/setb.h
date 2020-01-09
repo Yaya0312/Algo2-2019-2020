@@ -10,8 +10,8 @@
 
 typedef struct setb setb;
 
-//  setb_empty : crée une structure de données correspondant initialement à
-//    ensemble borné vide. avec pour borne maximale max.
+//  setb_empty : créé une structure de données correspondant initialement à
+//    ensemble borné vide, il possède une borne maximale max de type int.
 //    Renvoie NULL en cas de dépassement de capacité.
 //    Renvoie un pointeur vers l'objet qui gère la structure de données sinon.
 extern setb *setb_empty(int max);
@@ -22,7 +22,7 @@ extern setb *setb_empty(int max);
 extern int setb_put(setb *msb, int num);
 
 //  setb_display : affiche le graphe d'appartenance de l'ensemble borné.
-//    si l'entier est présent il est indiqué par une croix. Sinon rien n'est
+//    Si l'entier est présent il est indiqué par une croix. Sinon rien n'est
 //    affiché pour cet entier chaque entier est séparé par une tabulation.
 extern void setb_display(setb *msb);
 

@@ -1,7 +1,7 @@
 //  Partie interface du module read_words
 
 //  Le module read_words permet d'obtenir le prochain mot d'un fichier ou d'une
-//    chaine de caractére. Un mot est séparé par un espace ou un signe de
+//    chaine de caractère. Un mot est séparé par un espace ou un signe de
 //    ponctuation.
 
 #ifndef READ_WORDS__H

@@ -5,11 +5,11 @@
 
 //  struct lidx, lidx : structure permettant de stocker la table de hashage
 //    hashtable contenant les mots du lexique en tant que key et une struct
-//    ht_val en value, un holdall filenames contenant
-//    tous les noms de fichier représentant un lexique et un holdall words
-//    contenant tous les strings qui appartiennent au lexique mais qui n'était
-//    pas dans un fichier, enfin, il y a aussi une struct options qui
-//    permet de stocker les options qui seront appliqués au line indexer
+//    ht_val en value, un holdall filenames contenant tous les noms de fichier 
+//    représentant un lexique et un holdall words contenant tous les strings qui
+//    appartiennent au lexique mais qui n'était pas dans un fichier, enfin, il y
+//    a aussi une struct options qui permet de stocker les options qui seront 
+//    appliquées au line indexer.
 //  La structure de données ne stocke pas les objets mais des pointeurs vers ces
 //    objets.
 typedef struct lidx lidx;
