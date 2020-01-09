@@ -7,10 +7,14 @@ int main() {
   if (sli == NULL) {
     return EXIT_FAILURE;
   }
-  set_longint_put(sli, 12);
-  set_longint_put(sli, 18);
-  set_longint_put(sli, 20);
-  set_longint_put(sli, 25);
+  long int num = 12;
+  set_longint_put(sli, (const long int *) 12);
+  num = 12;
+  set_longint_put(sli, &num);
+  num = 20;
+  set_longint_put(sli, &num);
+  num = 25;
+  set_longint_put(sli, &num);
   set_longint_display(sli);
   set_longint_dispose(sli);
   return EXIT_SUCCESS;

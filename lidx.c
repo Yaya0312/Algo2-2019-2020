@@ -1,7 +1,6 @@
 #include "holdall.h"
 #include "hashtable.h"
 #include "option.h"
-#include "set_longint.h"
 #include "read_words.h"
 #include "setb.h"
 #include "lidx.h"
@@ -235,7 +234,7 @@ end:
 static void update_line(lidx *lex, long int line, char *word) {
   ht_val *p = (ht_val *) hashtable_search(lex->data, word);
   if (p != NULL) {
-    set_longint_put(p->lines, line);
+    set_longint_put(p->lines, &line);
   }
 }
 

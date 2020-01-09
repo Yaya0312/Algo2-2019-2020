@@ -7,7 +7,7 @@ typedef struct cset_longint cset_longint;
 
 struct cset_longint {
   cset_longint *next;
-  const long int *value;
+  long int value;
 };
 
 struct set_longint {
@@ -30,18 +30,21 @@ bool set_longint_is_empty(const set_longint *sli) {
 }
 
 static const long int *set_longint_last(const set_longint *sli) {
-  return sli->tail->value;
+  if (set_longint_is_empty(sli)) {
+    return NULL;
+  }
+  return &(sli->tail->value);
 }
 
 const long int *set_longint_put(set_longint *sli, const long int *num) {
-  if (*set_longint_last(sli) == *num) {
+  if (!set_longint_is_empty(sli) && *set_longint_last(sli) == *num) {
     return num;
   }
   cset_longint *p = malloc(sizeof *p);
   if (p == NULL) {
     return NULL;
   }
-  p->value = num;
+  p->value = *num;
   p->next = NULL;
   if (set_longint_is_empty(sli)) {
     sli->head = p;
@@ -58,10 +61,10 @@ void set_longint_display(set_longint *sli) {
   if (p == NULL) {
     return;
   }
-  printf("%ld", *p->value);
+  printf("%ld", p->value);
   p = p->next;
   while (p != NULL) {
-    printf(", %ld", *p->value);
+    printf(", %ld", p->value);
     p = p->next;
   }
 }
