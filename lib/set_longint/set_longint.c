@@ -64,7 +64,7 @@ void set_longint_display(set_longint *sli) {
   printf("%ld", p->value);
   p = p->next;
   while (p != NULL) {
-    printf(", %ld", p->value);
+    printf(",%ld", p->value);
     p = p->next;
   }
 }
