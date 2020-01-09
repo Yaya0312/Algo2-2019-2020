@@ -19,17 +19,6 @@ typedef struct lidx lidx;
 //    succès, NULL en cas d'échec.
 extern lidx *lidx_empty(holdall *string, holdall *filenames, options *opt);
 
-//  lidx_add_file : ouvre le fichier donné dans path, ajoute le nom du fichier
-//    dans le holdall correspondant se trouvant dans lid, puis ajoute chaques
-//    mots dans la hashtable de lid. Renvoie 0 en cas de succès et -1 en cas
-//    d'échec
-//extern int lidx_add_file(lidx *lid, char *path);
-
-//  lidx_add_string : ajoute le ou les mots contenus dans string dans la
-//    hashtable contenue dans lid. Renvoie 0 en cas de succès et -1 en cas
-//    d'échec
-//extern int lidx_add_string(lidx *lid, const char **string);
-
 //  lidx_add_stdin : mets à jour l'index des lignes à partir du fichier stream.
 //    Renvoie 0 en cas de succès et -1 en cas d'échec
 extern int lidx_add_stdin(lidx *lid, FILE *stream);

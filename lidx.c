@@ -214,8 +214,7 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
     if (p->lines == NULL) {
       return FUN_FAIL;
     }
-    printf("Pomme %d\n", (int) holdall_count(lid->filenames));
-    p->is_in = setb_empty(2);
+    p->is_in = setb_empty(MAX_LEX);
     if (p->is_in == NULL) {
       return FUN_FAIL;
     }
