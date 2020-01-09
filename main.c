@@ -8,10 +8,6 @@
 #include "locale.h"
 #include "holdall.h"
 
-static int fun_str(void *ptr, void *lid);
-static int fun_file(void *ptr, void *lid);
-static void *funcontext(void *context, void *ptr);
-
 int main(int argc, const char *argv[]) {
   if (argc < 2) {
     fprintf(stderr, "Nombre d'arguments invalide.\n");
@@ -22,10 +18,6 @@ int main(int argc, const char *argv[]) {
   int cur_arg = 1;
   int command_arg = 1;
   const char *arg_commands[argc];
-  lidx *lid = lidx_empty();
-  if (lid == NULL) {
-    return EXIT_FAILURE;
-  }
   holdall *filenames = holdall_empty();
   if (filenames == NULL) {
     return EXIT_FAILURE;
@@ -63,9 +55,10 @@ int main(int argc, const char *argv[]) {
   }
   options opt;
   manage_option(&opt, command_arg, (const char **) arg_commands);
-  lidx_set_options(lid, &opt);
-  holdall_apply_context(words, fun_str, funcontext, lid);
-  holdall_apply_context(filenames, fun_file, funcontext, lid);
+  lidx *lid = lidx_empty(words, filenames, &opt);
+  if (lid == NULL) {
+    return EXIT_FAILURE;
+  }
   holdall_dispose(&filenames);
   holdall_dispose(&words);
   if (opt.stream_in == NULL) {
@@ -78,19 +71,4 @@ int main(int argc, const char *argv[]) {
   lidx_print(lid);
   lidx_dispose(lid);
   return EXIT_SUCCESS;
-}
-
-static int fun_str(void *ptr, void *lid) {
-  return lidx_add_string(lid, ptr);
-}
-
-static int fun_file(void *ptr, void *lid) {
-  return lidx_add_file(lid, (char *) ptr);
-}
-
-static void *funcontext(void *context, void *ptr) {
-  if (ptr == NULL) {
-    return NULL;
-  }
-  return context;
 }

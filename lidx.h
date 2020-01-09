@@ -1,6 +1,7 @@
 #ifndef LIDX__H
 #define LIDX__H
 #include "option.h"
+#include "holdall.h"
 
 //  struct lidx, lidx : structure permettant de stocker la table de hashage
 //    hashtable contenant les mots du lexique en tant que key et une struct
@@ -16,18 +17,18 @@ typedef struct lidx lidx;
 //  lidx_empty : créé une structure de données qui contient une hashtable vide,
 //    ainsi que deux holdall vide. Renvoie un pointeur vers l'objet en cas de
 //    succès, NULL en cas d'échec.
-extern lidx *lidx_empty();
+extern lidx *lidx_empty(holdall *string, holdall *filenames, options *opt);
 
 //  lidx_add_file : ouvre le fichier donné dans path, ajoute le nom du fichier
 //    dans le holdall correspondant se trouvant dans lid, puis ajoute chaques
 //    mots dans la hashtable de lid. Renvoie 0 en cas de succès et -1 en cas
 //    d'échec
-extern int lidx_add_file(lidx *lid, char *path);
+//extern int lidx_add_file(lidx *lid, char *path);
 
-//  lidx_add_string : ajoute le ou les mots contenus dans dans string dans la
+//  lidx_add_string : ajoute le ou les mots contenus dans string dans la
 //    hashtable contenue dans lid. Renvoie 0 en cas de succès et -1 en cas
 //    d'échec
-extern int lidx_add_string(lidx *lid, const char **string);
+//extern int lidx_add_string(lidx *lid, const char **string);
 
 //  lidx_add_stdin : mets à jour l'index des lignes à partir du fichier stream.
 //    Renvoie 0 en cas de succès et -1 en cas d'échec
@@ -37,10 +38,6 @@ extern int lidx_add_stdin(lidx *lid, FILE *stream);
 //    puis affiche sur la sortie standard les résultats attendus par l'utilisa-
 //    teur
 extern void lidx_print(lidx *lid);
-
-//  lidx_set_options : définie les options d'affichage pour les mots contenus
-//    dans la hashtable de lid avec les options opts
-extern void lidx_set_options(lidx *lid, options *opts);
 
 //  lidx_dispose : libère les ressources allouées à la structure de données
 //    associée à *lid puis affecte à *lid la valeur NULL

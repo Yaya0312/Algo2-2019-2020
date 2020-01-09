@@ -38,8 +38,11 @@ static int add_word(lidx *lid, const char *word, int file_pos);
 static void update_line(lidx *lex, long int line, char *word);
 static void *free_value_hashatbale(hashtable *ht, char *word);
 static void update_case(int opp, char *word);
+static int fun_str(void *ptr, void *lid);
+static int fun_file(void *ptr, void *lid);
+static void *funcontext(void *context, void *ptr);
 
-lidx *lidx_empty() {
+lidx *lidx_empty(holdall *string, holdall *filenames, options *opt) {
   lidx *lid = malloc(sizeof(*lid));
   if (lid == NULL) {
     return NULL;
@@ -51,6 +54,7 @@ lidx *lidx_empty() {
   lid->words = holdall_empty();
   //words
   lid->filenames = holdall_empty();
+  lid->options = opt;
   //error
   if (lid->data == NULL || lid->words == NULL || lid->filenames == NULL) {
     hashtable_dispose(&(lid->data));
@@ -58,6 +62,8 @@ lidx *lidx_empty() {
     holdall_dispose(&(lid->filenames));
     return NULL;
   }
+  holdall_apply_context(string, fun_str, funcontext, lid);
+  holdall_apply_context(filenames, fun_file, funcontext, lid);
   return lid;
 }
 
@@ -144,10 +150,6 @@ void lidx_print(lidx *lid) {
       (void *(*)(void *, void *))print_line, lid->data);
 }
 
-void lidx_set_options(lidx *lid, options *opts) {
-  lid->options = opts;
-}
-
 void lidx_dispose(lidx *lid) {
   //free value hastable
   holdall_apply_context(lid->words, (int (*)(void *, void *))loop,
@@ -212,7 +214,8 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
     if (p->lines == NULL) {
       return FUN_FAIL;
     }
-    p->is_in = setb_empty(MAX_LEX);
+    printf("Pomme %d\n", (int) holdall_count(lid->filenames));
+    p->is_in = setb_empty(2);
     if (p->is_in == NULL) {
       return FUN_FAIL;
     }
@@ -272,4 +275,20 @@ static void update_case(int opp, char *word) {
     case UPPER:
       to_upper_string(word);
   }
+}
+
+//--- Add ----------------------------------------------------------------------
+static int fun_str(void *ptr, void *lid) {
+  return lidx_add_string(lid, ptr);
+}
+
+static int fun_file(void *ptr, void *lid) {
+  return lidx_add_file(lid, (char *) ptr);
+}
+
+static void *funcontext(void *context, void *ptr) {
+  if (ptr == NULL) {
+    return NULL;
+  }
+  return context;
 }
