@@ -15,8 +15,7 @@ typedef struct lidx lidx;
 
 //  lidx_empty : créé une structure de données qui contient une hashtable vide,
 //    ainsi que deux holdall vide. Renvoie un pointeur vers l'objet en cas de
-//    succès, NULL en cas d'échec. options sera def
-// ???????????????????????????????
+//    succès, NULL en cas d'échec.
 extern lidx *lidx_empty();
 
 //  lidx_add_file : ouvre le fichier donné dans path, ajoute le nom du fichier

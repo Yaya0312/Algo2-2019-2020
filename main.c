@@ -50,9 +50,11 @@ int main(int argc, const char *argv[]) {
     else {
       arg_commands[command_arg] = (char *) argv[cur_arg];
       command_arg = command_arg + 1;
-      if (strcmp("-i", argv[cur_arg]) == 0
-          || strcmp("-i", argv[cur_arg]) == 0) {
+      if (strcmp("-i", argv[cur_arg]) == 0) {
         ++cur_arg;
+        if (cur_arg >= argc) {
+          exit(EXIT_FAILURE);
+        }
         arg_commands[command_arg] = (char *) argv[cur_arg];
         command_arg = command_arg + 1;
       }
