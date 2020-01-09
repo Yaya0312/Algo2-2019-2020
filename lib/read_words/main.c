@@ -2,14 +2,12 @@
 #include <stdbool.h>
 #include "read_words.h"
 
-#define EXIT_FAILURE -1
-#define EXIT_SUCCESS 1
-
 int main() {
-  const char *string = (const char *) "la pomme bleu.";
   char word[MAX_LENGTH_WORDS];
   char c;
+  // String
   printf("*** String : print\n");
+  char *string = (char *) "la pomme bleu.";
   while (true) { //A optimiser (voir Q.16)
     c = next_word_string((char **) &string, word);
     if (strlen((char *) word) > 0) {
