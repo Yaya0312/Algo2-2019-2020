@@ -1,5 +1,5 @@
-#include <stdio.h>     /* for printf */
-#include <stdlib.h>    /* for exit */
+#include <stdio.h>
+#include <stdlib.h>
 #include <getopt.h>
 #include <stdbool.h>
 #include <string.h>
@@ -17,7 +17,7 @@
 -s, --case=as-is laisser les caractéres tel quel\n\
 -u, --case=upper converti tous les caractères lus en majuscule\n\
 -i FILE, --input=FILE \
- au lieu de l’entrée standard, lire le texte dans le fichier FILE;\n\
+ au lieu de l’entrée standard, lire le texte dans le fichier FILE\n\
 " \
 
 static struct option long_options[] = {

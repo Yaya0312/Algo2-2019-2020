@@ -22,7 +22,6 @@ typedef struct options {
 } options;
 
 //  manage_option : Initialise la structure opt selon les arguments argc et argv
-//    retourne -1 en cas d'échec() et en cas de succès.
 void manage_option(options *opt, int argc, const char *argv[]);
 
 //  option_debug : affiche sur la sortie standard les options fournis par le
