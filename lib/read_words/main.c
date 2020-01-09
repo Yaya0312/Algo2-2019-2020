@@ -7,7 +7,7 @@ int main() {
   char c;
   // String
   printf("*** String : print\n");
-  char *string = (char *) "la pomme bleu.";
+  char *string = (char *) "la pomme bleu. 6";
   while (true) { //A optimiser (voir Q.16)
     c = next_word_string((char **) &string, word);
     if (strlen((char *) word) > 0) {
