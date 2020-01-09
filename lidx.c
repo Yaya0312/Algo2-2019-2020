@@ -15,6 +15,7 @@
 #define FUN_SUCC 0
 #define MAX_LENGTH_WORDS 63
 #define WORD_LIMIT -2
+#define MAX_LEX 2
 
 struct lidx {
   hashtable *data;
@@ -211,7 +212,7 @@ static int add_word(lidx *lid, const char *word, int file_pos) {
     if (p->lines == NULL) {
       return FUN_FAIL;
     }
-    p->is_in = setb_empty(2);
+    p->is_in = setb_empty(MAX_LEX);
     if (p->is_in == NULL) {
       return FUN_FAIL;
     }
