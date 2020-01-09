@@ -4,22 +4,53 @@
 #define FUN_FAIL -1
 #define WORD_LIMIT -2
 
-// TODO fusionner avec next_word_file grace la fonction fmemopen qui converti
-// une chaine de caractére en fichier
+#define NEXT_WORD_F(STDIN)                                                     \
+  int count = 0;                                                               \
+  char c;                                                                      \
+  while ((c = (char) fgetc(file))) {                                           \
+    if (count > MAX_LENGTH_WORDS) {                                            \
+      while ((c = (char) fgetc(file))) {                                       \
+        if (!isalnum(c)) {                                                     \
+          return WORD_LIMIT;                                                   \
+        }                                                                      \
+      }                                                                        \
+      return WORD_LIMIT;                                                       \
+    }                                                                          \
+    if (STDIN) {                                                               \
+      if (c == '\n') {                                                         \
+        return c;                                                              \
+      }                                                                        \
+    }                                                                          \
+    if (!isalnum(c)) {                                                         \
+      break;                                                                   \
+    }                                                                          \
+    *word = (char) c;                                                          \
+    ++word;                                                                    \
+    ++count;                                                                   \
+  }                                                                            \
+  *word = '\0';                                                                \
+  return c;
+
+#define FILE_TYPE 0
+
+char next_word_file(FILE *file, char *word) {
+  NEXT_WORD_F(FILE_TYPE)
+}
+
 char next_word_string(char **string, char *word) {
   int count = 0;
   char c;
-  while ((c = **string)) {
+  while ((c = (char) **string)) {
     if (count > MAX_LENGTH_WORDS) {
-      while ((c = **string)) {
-        if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
+      while ((c = (char) **string)) {
+        if (!isalnum(c)) {
           return WORD_LIMIT;
         }
         ++(*string);
       }
       return WORD_LIMIT;
     }
-    if (c == '\0' || isspace(c) || ispunct(c)) {
+    if (!isalnum(c)) {
       break;
     }
     *word = (char) c;
@@ -32,51 +63,8 @@ char next_word_string(char **string, char *word) {
   return c;
 }
 
-char next_word_file(FILE *file, char *word) {
-  int count = 0;
-  char c;
-  while ((c = (char) fgetc(file))) {
-    if (count > MAX_LENGTH_WORDS) {
-      while ((c = (char) fgetc(file))) {
-        if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
-          return WORD_LIMIT;
-        }
-      }
-      return WORD_LIMIT;
-    }
-    if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
-      break;
-    }
-    *word = (char) c;
-    ++word;
-    ++count;
-  }
-  *word = '\0';
-  return c;
-}
+#define STDIN 1
 
 char next_word_stdin(FILE *file, char *word) {
-  int count = 0;
-  char c;
-  while ((c = (char) fgetc(file))) {
-    if (count > MAX_LENGTH_WORDS) {
-      while ((c = (char) fgetc(file))) {
-        if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
-          return WORD_LIMIT;
-        }
-      }
-      return WORD_LIMIT;
-    }
-    if (c == '\n') {
-      return c;
-    }
-    if (c == '\0' || c == EOF || isspace(c) || ispunct(c)) {
-      break;
-    }
-    *word = (char) c;
-    ++word;
-    ++count;
-  }
-  *word = '\0';
-  return c;
+  NEXT_WORD_F(STDIN)
 }
