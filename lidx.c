@@ -129,7 +129,7 @@ int lidx_add_stdin(lidx *lid, FILE *stream) {
   return FUN_SUCC;
 }
 
-void lidx_print(lidx *lid) { //OK
+void lidx_print(lidx *lid) {
   //apply options
   if (lid->options->sort) {
     holdall_sort(lid->words, (int (*)(const void *, const void *))strcoll);
