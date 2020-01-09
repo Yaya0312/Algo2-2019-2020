@@ -29,7 +29,7 @@ static struct option long_options[] = {
   {0, 0, 0, 0 }
 };
 
-int manage_option(options *opt, int argc, const char *argv[]) {
+void manage_option(options *opt, int argc, const char *argv[]) {
   //init struct
   opt->sort = false;
   opt->case_word = AS_IS;
@@ -41,7 +41,7 @@ int manage_option(options *opt, int argc, const char *argv[]) {
     c = getopt_long(argc, (char * const *) argv, "lsui:o:S",
             long_options, &option_index);
     if (c == -1) {
-      return FUN_SUCC;
+      return;
     }
     switch (c) {
       case HELP:
@@ -76,7 +76,6 @@ int manage_option(options *opt, int argc, const char *argv[]) {
         break;
     }
   }
-  return FUN_SUCC;
 }
 
 void option_debug(options *opt) {
