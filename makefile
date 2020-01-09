@@ -11,8 +11,10 @@ objects = $(hashtabledir)hashtable.o $(holdalldir)holdall.o $(read_words)read_wo
 executable = lidx
 
 all: $(executable)
+		$(MAKE) -C lib
 
 clean:
+	$(MAKE) -C lib clean
 	$(RM) $(objects) $(executable)
 
 $(executable): $(objects)

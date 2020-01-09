@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c11 -g -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2
+CFLAGS = -std=c11 -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2
 LDFLAGS =
 VPATH =
 objects =  main.o read_words.o

@@ -1,6 +1,6 @@
 CC = gcc
 holdalldir = ../holdall/
-CFLAGS = -std=c11 -g -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2 -I$(holdalldir)  -DHOLDALL_INSERT_TAIL
+CFLAGS = -std=c11 -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2 -I$(holdalldir)  -DHOLDALL_INSERT_TAIL
 LDFLAGS =
 VPATH = $(holdalldir)
 objects =  main.o setb.o $(holdalldir)holdall.o

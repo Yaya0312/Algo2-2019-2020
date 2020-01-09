@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c11 -g -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2
+CFLAGS = -std=c11 -Wall -Wconversion -Werror -Wextra -Wpedantic -Wwrite-strings -O2
 LDFLAGS =
 objects =  main.o set_longint.o
 executable = set_longint
