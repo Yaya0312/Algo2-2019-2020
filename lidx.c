@@ -67,7 +67,7 @@ lidx *lidx_empty(holdall *string, holdall *filenames, options *opt) {
   return lid;
 }
 
-int lidx_add_file(lidx *lid, char *path) {
+static int lidx_add_file(lidx *lid, char *path) {
   if (holdall_put(lid->filenames, path) != 0) {
     return FUN_FAIL;
   }
@@ -92,7 +92,7 @@ int lidx_add_file(lidx *lid, char *path) {
   return FUN_SUCC;
 }
 
-int lidx_add_string(lidx *lid, const char **s) {
+static int lidx_add_string(lidx *lid, const char **s) {
   if (strlen(*s) == 0) {
     fprintf(stderr, "*** No word.\n");
     exit(EXIT_FAILURE);
@@ -151,10 +151,8 @@ void lidx_print(lidx *lid) {
 }
 
 void lidx_dispose(lidx *lid) {
-  //free value hastable
   holdall_apply_context(lid->words, (int (*)(void *, void *))loop,
       (void *(*)(void *, void *))free_value_hashatbale, lid->data);
-  //free
   holdall_apply(lid->words, rfree);
   holdall_dispose(&(lid->words));
   holdall_dispose(&(lid->filenames));
@@ -197,9 +195,9 @@ static size_t str_hashfun(const char *s) {
 }
 
 //--- Ajout mot && mise à jour ligne -------------------------------------------
+
 static int add_word(lidx *lid, const char *word, int file_pos) {
   ht_val *cptr = (ht_val *) hashtable_search(lid->data, word);
-  // not exist
   if (cptr == NULL) {
     char *s = malloc(sizeof(char) * MAX_LENGTH_WORDS);
     memcpy(s, word, MAX_LENGTH_WORDS);
