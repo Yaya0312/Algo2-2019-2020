@@ -248,44 +248,27 @@ static void *free_value_hashatbale(hashtable *ht, char *word) {
 }
 
 //--- Change case --------------------------------------------------------------
-// void apply_string(char *str, int (*fun)(int)) {
-//   while (*str != '\0' && *str != EOF) {
-//     *str = (char) fun(*str);
-//     str = str + 1;
-//   }
-// }
+void apply_string(char *str, int (*fun)(int)) {
+  while (*str != '\0' && *str != EOF) {
+    *str = (char) fun(*str);
+    str = str + 1;
+  }
+}
 
-// static void to_upper_string(char *str) {
-//   apply_string(str, toupper);
-// }
+static void to_upper_string(char *str) {
+  apply_string(str, toupper);
+}
 
-// static void to_lower_string(char *str) {
-//   apply_string(str, tolower);
-// }
-
-// static void update_case(int opp, char *word) {
-//   switch (opp) {
-//     case LOWER:
-//       to_lower_string(word);
-//       break;
-//     case UPPER:
-//       to_upper_string(word);
-//       break;
-//   }
-// }
+static void to_lower_string(char *str) {
+  apply_string(str, tolower);
+}
 
 static void update_case(int opp, char *word) {
-  while (*word != '\0' && *word != EOF) {
-    switch (opp) {
-      case LOWER:
-        *word = (char) tolower(*word);
-        break;
-      case UPPER:
-        *word = (char) toupper(*word);
-        break;
-      default:
-        return;
-    }
-    word = word + 1;
+  switch (opp) {
+    case LOWER:
+      to_lower_string(word);
+      break;
+    case UPPER:
+      to_upper_string(word);
   }
 }
