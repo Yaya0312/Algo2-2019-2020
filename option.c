@@ -18,8 +18,6 @@
 -u, --case=upper converti tous les caractères lus en majuscule\n\
 -i FILE, --input=FILE \
  au lieu de l’entrée standard, lire le texte dans le fichier FILE;\n\
--o FILE, --ouput=FILE \
- au lieu de la sortie standard, écrire résultat dans le fichier FILE.\n\
 " \
 
 static struct option long_options[] = {
